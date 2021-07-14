@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         val currentUser = auth.currentUser;
         if(currentUser != null){
-            startActivity(Intent(this, DashBoardActivity::class.java))
+            startActivity(Intent(this, CustomerDashBoardActivity::class.java))
             finish()
         }
 
