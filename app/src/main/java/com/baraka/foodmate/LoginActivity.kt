@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             auth.signInWithEmailAndPassword(validEmail, validPsssword).addOnCompleteListener{
                 task ->
                 if(task.isSuccessful){
-                    startActivity(Intent(this, DashBoardActivity::class.java))
+                    startActivity(Intent(this, CustomerDashBoardActivity::class.java))
                     finish()
                 }else {
                     Toast.makeText(this, "Login unsuccessfull tyr again later", Toast.LENGTH_LONG)
