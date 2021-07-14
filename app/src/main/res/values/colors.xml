@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple_0">#9F2196F3</color>
     <color name="primary">#0099ff</color>
+    <color name="drawer_line">#bdb8b8</color>
 </resources>
