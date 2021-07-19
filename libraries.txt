@@ -1,0 +1,17 @@
+//firebase
+
+  implementation 'com.google.firebase:firebase-storage:20.0.0'
+
+implementation 'com.google.firebase:firebase-auth:19.2.0'
+
+implementation platform('com.google.firebase:firebase-bom:28.2.1')
+
+ implementation 'com.google.firebase:firebase-database:20.0.0'
+
+
+//circular-images 
+implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
+//progress-bar 
+implementation 'com.jpardogo.googleprogressbar:library:1.2.0'
