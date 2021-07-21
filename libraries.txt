@@ -15,3 +15,7 @@ implementation 'de.hdodenhof:circleimageview:3.1.0'
 
 //progress-bar 
 implementation 'com.jpardogo.googleprogressbar:library:1.2.0'
+
+
+//kotlin extensions
+apply plugin: 'kotlin-android-extensions
