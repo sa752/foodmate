@@ -1,15 +1,24 @@
 package com.baraka.foodmate
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.fragment_settings.*
+import java.io.ByteArrayOutputStream
 
 
 class Settings : Fragment() {
+private lateinit var imageUri: Uri
+    private val REQUEST_IMAGE_CAPTURE = 100
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,12 +30,61 @@ class Settings : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        profile_image_view.setOnClickListener{
+            takePictureIntent()
+        }
+    }
 
-        val editButton: Button = view.findViewById(R.id.edit_profile_button)
+    private fun takePictureIntent(){
+        //open default camera application
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also {
+            pictureIntent ->
+            pictureIntent.resolveActivity(activity?.packageManager!!)?.also {
+                //REQ H
+                startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE)
+            }
+                   }
+    }
 
-        editButton.setOnClickListener{
-            Toast.makeText(context, "Button clicked", Toast.LENGTH_LONG).show()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode==REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
+            val imageBitmap = data?.extras?.get("data") as Bitmap
+            uploadImageAndSaveURI(imageBitmap)
         }
 
+    }
+
+    private fun uploadImageAndSaveURI(bitmap: Bitmap){
+        //byte array output stream
+        val baos = ByteArrayOutputStream()
+        val storageRef = FirebaseStorage.getInstance().reference
+            .child("profile_pics/${FirebaseAuth.getInstance().currentUser?.uid}")
+        //100 BEST QUALITY  0 WORST
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
+        val image  = baos.toByteArray()
+        val upload = storageRef.putBytes(image)
+
+       progressbar.visibility = View.VISIBLE;
+        upload.addOnCompleteListener{
+            uploadTask ->
+            progressbar.visibility= View.VISIBLE
+            if(uploadTask.isSuccessful){
+              storageRef.downloadUrl.addOnCompleteListener {
+                  downloadTask->
+                  downloadTask.result?.let {uri->
+                      imageUri = uri
+                        profile_image_view.setImageBitmap(bitmap)
+                      progressbar.visibility = View.INVISIBLE
+                  }
+
+              }
+            }else {
+                uploadTask.exception?.let{ exception->
+                    activity?.toast(exception.message!!)
+                }
+            }
+        }
     }
 }

@@ -5,9 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Settings">
-
-
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -22,7 +19,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="459dp"
             android:background="@color/white"
             android:gravity="center"
             android:orientation="vertical">
@@ -32,27 +29,43 @@
                 android:layout_height="225dp"
                 android:layout_marginTop="37dp"
                 android:layout_marginBottom="37dp"
-                android:src="@drawable/hannah" />
+                android:id="@+id/profile_image_view"
+                android:src="@drawable/ic_boy_pic" />
 
             <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_email"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
                 android:text="@string/user_full_name"
                 android:textColor="@color/purple_700"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/user_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:padding="10dp"
                 android:text="@string/user_email"
                 android:textColor="@color/purple_700"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                app:drawableLeftCompat="@drawable/ic_person" />
 
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:visibility="invisible"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
 
     <Button
         android:id="@+id/edit_profile_button"
@@ -82,5 +95,4 @@
         app:layout_constraintTop_toBottomOf="@+id/edit_profile_button"
         app:layout_constraintVertical_bias="0.333"
         tools:layout_editor_absoluteX="0dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
