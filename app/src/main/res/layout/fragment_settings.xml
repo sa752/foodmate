@@ -57,7 +57,7 @@
 
         </LinearLayout>
         <ProgressBar
-            android:id="@+id/progressbar"
+            android:id="@+id/progress_circular"
             android:visibility="invisible"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal"
