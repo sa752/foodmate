@@ -6,11 +6,10 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -31,32 +30,33 @@ class Settings : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         profile_image_view.setOnClickListener{
             takePictureIntent()
         }
     }
 
-    private  fun  takePictureIntent(){
-        //open camera application
+    private fun takePictureIntent(){
+        //open default camera application
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also {
-            pictureIntent->
-            pictureIntent.resolveActivity(activity?.packageManager!!)?.also{
-                startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE )
+            pictureIntent ->
+            pictureIntent.resolveActivity(activity?.packageManager!!)?.also {
+                //REQ H
+                startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE)
             }
-        }
+                   }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(requestCode ==REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK ){
+        if(requestCode==REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK){
             val imageBitmap = data?.extras?.get("data") as Bitmap
             uploadImageAndSaveURI(imageBitmap)
         }
+
     }
 
-    private  fun uploadImageAndSaveURI(bitmap: Bitmap){
+    private fun uploadImageAndSaveURI(bitmap: Bitmap){
         //byte array output stream
         val baos = ByteArrayOutputStream()
         val storageRef = FirebaseStorage.getInstance().reference
