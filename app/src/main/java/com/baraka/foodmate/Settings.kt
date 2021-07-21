@@ -64,17 +64,19 @@ private lateinit var imageUri: Uri
         //100 BEST QUALITY  0 WORST
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
         val image  = baos.toByteArray()
-        val upload = storageRef.putBytes(image
-       progressbar.visibility= View.VISIBLE;
+        val upload = storageRef.putBytes(image)
+
+       progressbar.visibility = View.VISIBLE;
         upload.addOnCompleteListener{
             uploadTask ->
-            progressbar.visibility= View.VISIBLE;
+            progressbar.visibility= View.VISIBLE
             if(uploadTask.isSuccessful){
               storageRef.downloadUrl.addOnCompleteListener {
                   downloadTask->
                   downloadTask.result?.let {uri->
                       imageUri = uri
                         profile_image_view.setImageBitmap(bitmap)
+                      progressbar.visibility = View.INVISIBLE
                   }
 
               }
