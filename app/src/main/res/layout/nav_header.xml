@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:layout_marginStart="16dp"
     android:layout_marginLeft="16dp"
+    android:id="@+id/navigation_header"
     android:layout_marginTop="16dp"
     android:background="@color/white"
     android:orientation="vertical"
@@ -11,6 +12,7 @@
 <de.hdodenhof.circleimageview.CircleImageView
     android:layout_width="60dp"
     android:layout_height="60dp"
+    android:id="@+id/nav_view_image"
     android:src="@drawable/ic_boy_pic"
     />
 
