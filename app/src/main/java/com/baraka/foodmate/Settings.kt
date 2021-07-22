@@ -11,7 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_settings.*
@@ -20,12 +22,13 @@ import java.io.ByteArrayOutputStream
 
 class Settings : Fragment() {
     private  lateinit var imageUri: Uri
-    private  val REQUEST_IMAGE_CAPTURE = 100
+    private val REQUEST_IMAGE_CAPTURE = 100
     var databaseReference: DatabaseReference? = null
     var database: FirebaseDatabase? = null
 
     //get the current logged in user
     private val currentUser = FirebaseAuth.getInstance().currentUser
+    val DEFAULT_IMAGE = "https://picsum.photos/200"
 
 
     override fun onCreateView(
@@ -42,8 +45,49 @@ class Settings : Fragment() {
         databaseReference = database?.reference?.child("profile")
         currentUser?.let{user ->
             setUserFullNameAndEmail()
-        }
+            Glide.with(this)
+                .load(user.photoUrl).into(profile_image_view)
 
+            edit_profile_button.setOnClickListener{
+                val photo = when {
+                    ::imageUri.isInitialized -> imageUri
+                    currentUser?.photoUrl == null-> Uri.parse(DEFAULT_IMAGE)
+                    else -> currentUser.photoUrl
+                }
+                val fname = user_first_name .text.toString().trim()
+                val lname = user_last_name.text.toString().trim()
+
+                if(fname.isEmpty()){
+                    user_first_name.error ="First Name Required"
+                    user_first_name.requestFocus()
+                    return@setOnClickListener
+                }
+                if(lname.isEmpty()){
+                    user_last_name.error ="Last Name Required"
+                    user_last_name.requestFocus()
+                    return@setOnClickListener
+                }
+
+                val updates = UserProfileChangeRequest.Builder().setDisplayName(
+                    fname + " " + lname
+                ).setPhotoUri(photo)
+                    .build()
+                progress_circular.visibility = View.VISIBLE
+
+                val currentUserDB = databaseReference?.child(user?.uid!!)
+                currentUserDB?.child("firstname")?.setValue(fname)
+                currentUserDB?.child("lastname")?.setValue(lname)
+                user?.updateProfile(updates)?.addOnCompleteListener{task->
+                    progress_circular.visibility = View.INVISIBLE
+                    if(task.isSuccessful){
+                        Toast.makeText(context, "Update  successfull", Toast.LENGTH_LONG)
+                    }else {
+                        Toast.makeText(context, task.exception?.message, Toast.LENGTH_LONG)
+                    }
+                }
+
+            }
+        }
 
         profile_image_view.setOnClickListener{
             takePictureIntent()
