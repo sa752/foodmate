@@ -17,6 +17,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.nav_header.*
 import java.io.ByteArrayOutputStream
 
 
@@ -46,8 +47,7 @@ class Settings : Fragment() {
         currentUser?.let{user ->
             setUserFullNameAndEmail()
             Glide.with(this)
-                .load(user.photoUrl).into(profile_image_view)
-
+                .load(user.photoUrl  ).into(profile_image_view)
             edit_profile_button.setOnClickListener{
                 val photo = when {
                     ::imageUri.isInitialized -> imageUri
@@ -69,7 +69,7 @@ class Settings : Fragment() {
                 }
 
                 val updates = UserProfileChangeRequest.Builder().setDisplayName(
-                    fname + " " + lname
+                    "$fname $lname"
                 ).setPhotoUri(photo)
                     .build()
                 progress_circular.visibility = View.VISIBLE
