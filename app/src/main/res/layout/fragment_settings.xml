@@ -32,25 +32,42 @@
                 android:id="@+id/profile_image_view"
                 android:src="@drawable/ic_boy_pic" />
 
-            <TextView
-                android:id="@+id/user_name"
+            <EditText
+                android:id="@+id/user_first_name"
+                android:hint="@string/user_first_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_email"
                 android:drawablePadding="10dp"
                 android:padding="10dp"
-                android:text="@string/user_full_name"
+                tools:text=""
                 android:textColor="@color/purple_700"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_email" />
 
-            <TextView
+            <EditText
+                android:id="@+id/user_last_name"
+                android:hint="@string/user_first_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_email"
+                android:drawablePadding="10dp"
+                android:padding="10dp"
+                tools:text="@string/user_last_name"
+                android:textColor="@color/purple_700"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:drawableStart="@drawable/ic_email" />
+
+            <EditText
                 android:id="@+id/user_email"
+                android:hint="@string/user_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
-                android:text="@string/user_email"
+                tools:text="@string/user_email"
                 android:textColor="@color/purple_700"
                 android:textSize="18sp"
                 app:drawableLeftCompat="@drawable/ic_person" />
