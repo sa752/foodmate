@@ -11,13 +11,13 @@
 <de.hdodenhof.circleimageview.CircleImageView
     android:layout_width="60dp"
     android:layout_height="60dp"
-    android:src="@drawable/hannah"
+    android:src="@drawable/ic_boy_pic"
     />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/user_name"
+        android:id="@+id/nav_bar_user_name"
         android:text="Baraka Mulumia"
         android:textColor="@color/purple_200"
         android:textSize="20dp"
@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/user_email"
+        android:id="@+id/nav_bar_user_email"
         android:text="baraka@gmail.com"
         android:textColor="@color/purple_200"
         android:textSize="16dp"
