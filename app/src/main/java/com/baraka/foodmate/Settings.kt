@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_settings.*
 import java.io.ByteArrayOutputStream
@@ -20,6 +21,12 @@ import java.io.ByteArrayOutputStream
 class Settings : Fragment() {
     private  lateinit var imageUri: Uri
     private  val REQUEST_IMAGE_CAPTURE = 100
+    var databaseReference: DatabaseReference? = null
+    var database: FirebaseDatabase? = null
+
+    //get the current logged in user
+    private val currentUser = FirebaseAuth.getInstance().currentUser
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +38,13 @@ class Settings : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        database = FirebaseDatabase.getInstance()
+        databaseReference = database?.reference?.child("profile")
+        currentUser?.let{user ->
+            setUserFullNameAndEmail()
+        }
+
+
         profile_image_view.setOnClickListener{
             takePictureIntent()
         }
@@ -86,6 +100,20 @@ class Settings : Fragment() {
             }
         }
 
+    }
 
+    private  fun setUserFullNameAndEmail(){
+        var userReference = databaseReference?.child(currentUser?.uid!!)
+
+        userReference?.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                user_first_name.setText(snapshot.child("firstname").value.toString())
+                user_last_name.setText(snapshot.child("lastname").value.toString())
+                user_email.setText(currentUser?.email)
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 }
