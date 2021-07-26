@@ -67,9 +67,9 @@ class CustomerDashBoardActivity : AppCompatActivity(), NavigationView.OnNavigati
                 setToolbarTitle("Chase the flavours")
                 changeFragment(Home())
             }
-            R.id.nav_food_store-> {
-                setToolbarTitle("Delicacies and Meals")
-                changeFragment(Meals())
+            R.id.nav_orders-> {
+                setToolbarTitle("Food MATE Orders")
+                changeFragment(MyOrders())
             }
 
             R.id.nav_settings -> {

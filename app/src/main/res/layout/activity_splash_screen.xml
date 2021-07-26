@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash_screen_bg"
-    android:padding="16dp"
+    android:foregroundGravity="center_vertical"
+    android:padding="20dp"
     tools:context=".SplashScreenActivity">
 
     <TextView
@@ -14,9 +15,10 @@
         android:layout_height="wrap_content"
         android:background="@drawable/splash_text_round_corners"
         android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
         android:hapticFeedbackEnabled="false"
         android:padding="16dp"
-        android:text="Eat with style Getting things ready"
+        android:text="Eat with style \n Getting things ready"
         android:textColor="@color/white"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
