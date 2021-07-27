@@ -78,7 +78,7 @@ class CustomerDashBoardActivity : AppCompatActivity(), NavigationView.OnNavigati
             }
 
             R.id.nav_logout -> {
-                auth.signOut();
+                auth.signOut()
                 startActivity(Intent(applicationContext, MainActivity::class.java))
             }
         }
