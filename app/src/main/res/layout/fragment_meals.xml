@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyOrders">
+    tools:context=".Meals">
 
     <TextView
         android:id="@+id/meals_text_main"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_medium"
         android:padding="10dp"
-        android:text="Orders page"
+        android:text="Meals Page "
         android:textColor="@color/purple_200"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
