@@ -12,8 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodMate"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.MealItemActivity"></activity>
-        <activity android:name=".CustomerDashBoardActivity" />
+        <activity android:name=".CustomerDashBoardActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
